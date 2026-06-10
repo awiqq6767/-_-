@@ -170,12 +170,13 @@ namespace курсовая_работаа
                             return double.NaN;
 
                     default:
+                        MessageBox.Show($"Ошибка: неизвестная функция '{SelectedFunction}'");
                         return 0;
                 }
             }
             catch
             {
-                return 0;
+                return double.NaN;
             }
         }
 
@@ -185,6 +186,14 @@ namespace курсовая_работаа
         {
             try
             {
+                // Проверяем, заполнены ли поля
+                if (!AreCoefficientsFilled())
+                {
+                    MessageBox.Show("Пожалуйста, заполните все коэффициенты!",
+                                  "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Очищаем старый график
                 chartGraph.Series.Clear();
 
@@ -214,7 +223,6 @@ namespace курсовая_работаа
                 chartGraph.ChartAreas[0].AxisX.Maximum = 5;
                 chartGraph.ChartAreas[0].AxisY.Minimum = -5;
                 chartGraph.ChartAreas[0].AxisY.Maximum = 5;
-
             }
             catch (Exception ex)
             {
@@ -287,37 +295,37 @@ namespace курсовая_работаа
                 case "Линейная":
                     double k = double.Parse(txtK.Text);
                     double b = double.Parse(txtB.Text);
-                    if (b == 0 && k != 0) return "нечётная ";
-                    else if (b != 0 && k == 0) return "чётная";
-                    else return "общего вида";
+                    if (b == 0 && k != 0) return "Нечётная ";
+                    else if (b != 0 && k == 0) return "Чётная";
+                    else return "Общего вида";
 
                 case "Квадратичная":
                     double b2 = double.Parse(txtB.Text);
-                    if (b2 == 0) return "чётная";
-                    else return "общего вида ";
+                    if (b2 == 0) return "Чётная";
+                    else return "Общего вида ";
 
                 case "Кубическая":
                     double b3 = double.Parse(txtB.Text);
                     double d = double.Parse(txtD.Text);
-                    if (b3 == 0 && d == 0) return "нечётная";
-                    else return "общего вида";
+                    if (b3 == 0 && d == 0) return "Нечётная";
+                    else return "Общего вида";
 
                 case "Синусоида":
-                    return "нечётная";
+                    return "Нечётная";
                 case "Косинусоида":
-                    return "чётная";
+                    return "Чётная";
                 case "Тангенсоида":
-                    return "нечётная";
+                    return "Нечётная";
                 case "Экспонента":
-                    return "ни чётная, ни нечётная";
+                    return "Ни чётная, ни нечётная";
                 case "Логарифмическая":
-                    return "ни чётная, ни нечётная";
+                    return "Ни чётная, ни нечётная";
                 case "Модуль":
-                    return "чётная";
+                    return "Чётная";
                 case "Обратная пропорциональность":
-                    return "нечётная";
+                    return "Нечётная";
                 default:
-                    return "не определено";
+                    return "Не определено";
             }
         }
 
@@ -343,52 +351,52 @@ namespace курсовая_работаа
             {
                 case "Линейная":
                     double k = double.Parse(txtK.Text);
-                    if (k > 0) return "возрастает";
-                    else if (k < 0) return "убывает";
-                    else return "постоянная";
+                    if (k > 0) return "Возрастает";
+                    else if (k < 0) return "Убывает";
+                    else return "Постоянная";
 
                 case "Квадратичная":
                     double a = double.Parse(txtA.Text);
-                    if (a > 0) return "убывает до вершины, затем возрастает";
-                    else if (a < 0) return "возрастает до вершины, затем убывает";
-                    else return "линейная функция (a = 0)";
+                    if (a > 0) return "Убывает до вершины, затем возрастает";
+                    else if (a < 0) return "Возрастает до вершины, затем убывает";
+                    else return "Линейная функция (a = 0)";
 
                 case "Кубическая":
                     double a3 = double.Parse(txtA.Text);
-                    if (a3 > 0) return "возрастает на всей области";
-                    else if (a3 < 0) return "убывает на всей области";
-                    else return "квадратичная/линейная (a = 0)";
+                    if (a3 > 0) return "Возрастает на всей области";
+                    else if (a3 < 0) return "Убывает на всей области";
+                    else return "Квадратичная/линейная (a = 0)";
 
                 case "Синусоида":
-                    return "чередует возрастание и убывание";
+                    return "Чередует возрастание и убывание";
                 case "Косинусоида":
-                    return "чередует возрастание и убывание";
+                    return "Чередует возрастание и убывание";
                 case "Тангенсоида":
-                    return "возрастает на каждом интервале";
+                    return "Возрастает на каждом интервале";
                 case "Экспонента":
                     double aExp = double.Parse(txtA.Text);
                     double bExp = double.Parse(txtB.Text);
-                    if (aExp > 0 && bExp > 0) return "возрастает";
-                    else if (aExp > 0 && bExp < 0) return "убывает";
-                    else if (aExp < 0 && bExp > 0) return "убывает";
-                    else return "постоянная (a = 0)";
+                    if (aExp > 0 && bExp > 0) return "Возрастает";
+                    else if (aExp > 0 && bExp < 0) return "Убывает";
+                    else if (aExp < 0 && bExp > 0) return "Убывает";
+                    else return "Постоянная (a = 0)";
                 case "Логарифмическая":
                     double aLog = double.Parse(txtA.Text);
-                    if (aLog > 0) return "возрастает";
+                    if (aLog > 0) return "Возрастает";
                     else if (aLog < 0) return "убывает";
-                    else return "постоянная (a = 0)";
+                    else return "Постоянная (a = 0)";
                 case "Модуль":
                     double kMod = double.Parse(txtK.Text);
-                    if (kMod > 0) return "убывает на (-∞;0], возрастает на [0;+∞)";
-                    else if (kMod < 0) return "возрастает на (-∞;0], убывает на [0;+∞)";
+                    if (kMod > 0) return "Убывает на (-∞;0], возрастает на [0;+∞)";
+                    else if (kMod < 0) return "Возрастает на (-∞;0], убывает на [0;+∞)";
                     else return "постоянная";
                 case "Обратная пропорциональность":
                     double kInv = double.Parse(txtK.Text);
-                    if (kInv > 0) return "убывает на (-∞;0) и на (0;+∞)";
-                    else if (kInv < 0) return "возрастает на (-∞;0) и на (0;+∞)";
-                    else return "постоянная";
+                    if (kInv > 0) return "Убывает на (-∞;0) и на (0;+∞)";
+                    else if (kInv < 0) return "Возрастает на (-∞;0) и на (0;+∞)";
+                    else return "Постоянная";
                 default:
-                    return "не определено";
+                    return "Не определено";
             }
         }
 
@@ -398,57 +406,57 @@ namespace курсовая_работаа
             switch (SelectedFunction)
             {
                 case "Линейная":
-                    return "нет экстремумов";
+                    return "Нет экстремумов";
 
                 case "Квадратичная":
                     double a = double.Parse(txtA.Text);
                     double b = double.Parse(txtB.Text);
                     double c = double.Parse(txtC.Text);
 
-                    if (a == 0) return "не квадратичная функция";
+                    if (a == 0) return "Не квадратичная функция";
 
                     double xVertex = -b / (2 * a);
                     double yVertex = a * xVertex * xVertex + b * xVertex + c;
 
                     if (a > 0)
-                        return $"минимум: {yVertex:F2} (x = {xVertex:F2})";
+                        return $"Минимум: {yVertex:F2} (x = {xVertex:F2})";
                     else
-                        return $"максимум: {yVertex:F2} (x = {xVertex:F2})";
+                        return $"Максимум: {yVertex:F2} (x = {xVertex:F2})";
 
                 case "Кубическая":
-                    return "нет экстремумов";
+                    return "Нет экстремумов";
 
                 case "Синусоида":
                     double A = double.Parse(txtAmplitude.Text);
-                    return $"максимум: {A}, минимум: {-A}";
+                    return $"Максимум: {A}, Минимум: {-A}";
 
                 case "Косинусоида":
                     double A2 = double.Parse(txtAmplitude.Text);
-                    return $"максимум: {A2}, минимум: {-A2}";
+                    return $"Максимум: {A2}, Минимум: {-A2}";
 
                 case "Тангенсоида":
-                    return "нет экстремумов";
+                    return "Нет экстремумов";
 
                 case "Экспонента":
-                    return "нет экстремумов)";
+                    return "Нет экстремумов)";
 
                 case "Логарифмическая":
-                    return "нет экстремумов";
+                    return "Нет экстремумов";
 
                 case "Модуль":
                     double k = double.Parse(txtK.Text);
                     if (k > 0)
-                        return $"минимум: 0 (x = 0)";
+                        return $"Минимум: 0 (x = 0)";
                     else if (k < 0)
-                        return $"максимум: 0 (x = 0)";
+                        return $"Максимум: 0 (x = 0)";
                     else
-                        return "постоянная функция y = 0";
+                        return "Постоянная функция y = 0";
 
                 case "Обратная пропорциональность":
-                    return "нет экстремумов";
+                    return "Нет экстремумов";
 
                 default:
-                    return "не определено";
+                    return "Не определено";
             }
         }
 
@@ -462,7 +470,7 @@ namespace курсовая_работаа
                     double k = double.Parse(txtK.Text);
                     double b = double.Parse(txtB.Text);
                     if (k == 0)
-                        return b == 0 ? "все x (функция y = 0)" : "нет нулей (постоянная ≠ 0)";
+                        return b == 0 ? "Все x (функция y = 0)" : "нет нулей (постоянная ≠ 0)";
                     else
                         return $"x = {(-b / k):F2}";
 
@@ -471,10 +479,10 @@ namespace курсовая_работаа
                     double b2 = double.Parse(txtB.Text);
                     double c = double.Parse(txtC.Text);
 
-                    if (a == 0) return "не квадратичная функция";
+                    if (a == 0) return "Не квадратичная функция";
 
                     double D = b2 * b2 - 4 * a * c;
-                    if (D < 0) return "нет действительных корней";
+                    if (D < 0) return "Нет действительных корней";
                     if (Math.Abs(D) < 0.0001) return $"x = {(-b2 / (2 * a)):F2} (один корень)";
 
                     double x1 = (-b2 - Math.Sqrt(D)) / (2 * a);
@@ -492,25 +500,35 @@ namespace курсовая_работаа
                     return $"x = (π/2 - φ)/ω + πk/ω, k ∈ ℤ";
 
                 default:
-                    return "вычисляется приближённо (см. интервал [-5;5])";
+                    return "Вычисляется приближённо (см. интервал [-5;5])";
             }
         }
 
         // Область значений
+        // Область значений
         private string GetRange()
         {
+            // Проверяем, что все необходимые поля заполнены
+            if (!AreCoefficientsFilled())
+                return "Введите коэффициенты!";
+
             double minY = double.MaxValue;
             double maxY = double.MinValue;
+            bool hasValidPoints = false;
 
             for (double x = -5; x <= 5; x += 0.1)
             {
                 double y = CalculateY(x);
                 if (!double.IsInfinity(y) && !double.IsNaN(y))
                 {
+                    hasValidPoints = true;
                     if (y < minY) minY = y;
                     if (y > maxY) maxY = y;
                 }
             }
+
+            if (!hasValidPoints)
+                return "Нет допустимых значений на интервале";
 
             return $"y ∈ [{minY:F2}; {maxY:F2}] (на интервале x∈[-5;5])";
         }
@@ -518,35 +536,43 @@ namespace курсовая_работаа
         // Сохранение
         private void btnSave_Click(object sender, EventArgs e)
         {
-                try
-                {
-                    SaveFileDialog saveFileDialog = new SaveFileDialog();
-                    saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
-                    saveFileDialog.DefaultExt = "txt";
-                    saveFileDialog.FileName = $"Исследование_{SelectedFunction}_{DateTime.Now:yyyyMMdd_HHmmss}";
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+                saveFileDialog.DefaultExt = "txt";
+                saveFileDialog.FileName = $"Исследование_{SelectedFunction}_{DateTime.Now:yyyyMMdd_HHmmss}";
 
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        // Формируем содержимое
-                        string content = $"ИССЛЕДОВАНИЕ ФУНКЦИИ\n\n";
-                        content += $"Функция: {SelectedFunction}\n";
-                        content += $"Формула: {lblFormula.Text}\n\n";
-                        content += $"РЕЗУЛЬТАТЫ:\n";
-                        content += $"Область определения: {GetDomain()}\n";
-                        content += $"Чётность/нечётность: {GetParity()}\n";
-                        content += $"Периодичность: {GetPeriodicity()}\n";
-                        content += $"Монотонность: {GetMonot()}\n";
-                        content += $"Экстремумы: {FindExtremums()}\n";
-                        content += $"Нули функции: {FindZeros()}\n";
-                        content += $"Область значений: {GetRange()}\n\n";
-
-                        System.IO.File.WriteAllText(saveFileDialog.FileName, content, Encoding.UTF8);
-                    }
-                }
-                catch (Exception ex)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Формируем содержимое
+                    string content = $"ИССЛЕДОВАНИЕ ФУНКЦИИ\n\n";
+                    content += $"Функция: {SelectedFunction}\n";
+                    content += $"Формула: {lblFormula.Text}\n";
+
+                    // Добавляем коэффициенты
+                    content += $"\nКОЭФФИЦИЕНТЫ:\n";
+                    content += GetCoefficientsText();
+
+                    content += $"\n\nРЕЗУЛЬТАТЫ:\n";
+                    content += $"Область определения: {GetDomain()}\n";
+                    content += $"Чётность/нечётность: {GetParity()}\n";
+                    content += $"Периодичность: {GetPeriodicity()}\n";
+                    content += $"Монотонность: {GetMonot()}\n";
+                    content += $"Экстремумы: {FindExtremums()}\n";
+                    content += $"Нули функции: {FindZeros()}\n";
+                    content += $"Область значений: {GetRange()}\n\n";
+
+                    System.IO.File.WriteAllText(saveFileDialog.FileName, content, Encoding.UTF8);
+
+                    MessageBox.Show("Файл успешно сохранён!", "Успех",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // На главную
@@ -561,5 +587,114 @@ namespace курсовая_работаа
         {
             Application.Exit();
         }
+        private bool AreCoefficientsFilled()
+        {
+            switch (SelectedFunction)
+            {
+                case "Линейная":
+                   
+                    return !string.IsNullOrWhiteSpace(txtK.Text) &&
+                           !string.IsNullOrWhiteSpace(txtB.Text);
+
+                case "Квадратичная":
+                    return !string.IsNullOrWhiteSpace(txtA.Text) &&
+                           !string.IsNullOrWhiteSpace(txtB.Text) &&
+                           !string.IsNullOrWhiteSpace(txtC.Text);
+
+                case "Кубическая":
+                    return !string.IsNullOrWhiteSpace(txtA.Text) &&
+                           !string.IsNullOrWhiteSpace(txtB.Text) &&
+                           !string.IsNullOrWhiteSpace(txtC.Text) &&
+                           !string.IsNullOrWhiteSpace(txtD.Text);
+
+                case "Синусоида":
+                case "Косинусоида":
+                case "Тангенсоида":
+                    return !string.IsNullOrWhiteSpace(txtAmplitude.Text) &&
+                           !string.IsNullOrWhiteSpace(txtOmega.Text) &&
+                           !string.IsNullOrWhiteSpace(txtPhi.Text);
+
+                case "Экспонента":
+                case "Логарифмическая":
+                    return !string.IsNullOrWhiteSpace(txtA.Text) &&
+                           !string.IsNullOrWhiteSpace(txtB.Text);
+
+                case "Модуль":
+                case "Обратная пропорциональность":
+                    return !string.IsNullOrWhiteSpace(txtK.Text);
+
+                default:
+                    return false;
+            }
+        }
+        // Получение текста с коэффициентами для сохранения
+        private string GetCoefficientsText()
+        {
+            string result = "";
+
+            switch (SelectedFunction)
+            {
+                case "Линейная":
+                    result += $"k = {txtK.Text}\n";
+                    result += $"b = {txtB.Text}";
+                    break;
+
+                case "Квадратичная":
+                    result += $"a = {txtA.Text}\n";
+                    result += $"b = {txtB.Text}\n";
+                    result += $"c = {txtC.Text}";
+                    break;
+
+                case "Кубическая":
+                    result += $"a = {txtA.Text}\n";
+                    result += $"b = {txtB.Text}\n";
+                    result += $"c = {txtC.Text}\n";
+                    result += $"d = {txtD.Text}";
+                    break;
+
+                case "Синусоида":
+                    result += $"A (амплитуда) = {txtAmplitude.Text}\n";
+                    result += $"ω (омега) = {txtOmega.Text}\n";
+                    result += $"φ (фи) = {txtPhi.Text}";
+                    break;
+
+                case "Косинусоида":
+                    result += $"A (амплитуда) = {txtAmplitude.Text}\n";
+                    result += $"ω (омега) = {txtOmega.Text}\n";
+                    result += $"φ (фи) = {txtPhi.Text}";
+                    break;
+
+                case "Тангенсоида":
+                    result += $"A (амплитуда) = {txtAmplitude.Text}\n";
+                    result += $"ω (омега) = {txtOmega.Text}\n";
+                    result += $"φ (фи) = {txtPhi.Text}";
+                    break;
+
+                case "Экспонента":
+                    result += $"a = {txtA.Text}\n";
+                    result += $"b = {txtB.Text}";
+                    break;
+
+                case "Логарифмическая":
+                    result += $"a = {txtA.Text}\n";
+                    result += $"b = {txtB.Text}";
+                    break;
+
+                case "Модуль":
+                    result += $"k = {txtK.Text}";
+                    break;
+
+                case "Обратная пропорциональность":
+                    result += $"k = {txtK.Text}";
+                    break;
+
+                default:
+                    result = "Коэффициенты не определены";
+                    break;
+            }
+
+            return result;
+        }
     }
+
 }
